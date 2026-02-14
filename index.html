@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ConnectAI</title>
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+background: linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+}
+
+.container{
+margin-top:80px;
+}
+
+.card{
+background: rgba(255,255,255,0.1);
+padding:30px;
+border-radius:15px;
+width:320px;
+margin:auto;
+backdrop-filter: blur(10px);
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+border-radius:8px;
+border:none;
+}
+
+button{
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:8px;
+background:#00c6ff;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#0072ff;
+}
+
+.hidden{
+display:none;
+}
+
+.videoBox{
+width:600px;
+height:350px;
+background:black;
+margin:auto;
+border-radius:15px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>ConnectAI</h1>
+<p>Connect Emotions • Connect People</p>
+
+<!-- LOGIN -->
+<div class="container" id="login">
+<div class="card">
+<h2>Login</h2>
+<input id="username" placeholder="Username (. _ @ allowed)">
+<input id="password" type="password" placeholder="Strong Password">
+<button onclick="login()">Login</button>
+<p id="loginError" style="color:#ff8080"></p>
+</div>
+</div>
+
+<!-- MOOD -->
+<div class="container hidden" id="mood">
+<div class="card">
+<h2>Enter Your Mood</h2>
+<input id="moodInput" placeholder="Type your mood">
+<button onclick="goOptions()">Continue</button>
+</div>
+</div>
+
+<!-- OPTIONS -->
+<div class="container hidden" id="options">
+<div class="card">
+<h2>Choose Connection Mode</h2>
+<button onclick="showChat()">Chat</button>
+<button onclick="showTalk()">Talk</button>
+<button onclick="showVideo()">Face to Face</button>
+</div>
+</div>
+
+<!-- CHAT -->
+<div class="container hidden" id="chat">
+<div class="card">
+<h2>Chat Mode</h2>
+<p>Chat Connected ✔</p>
+<button onclick="backOptions()">Back</button>
+</div>
+</div>
+
+<!-- TALK -->
+<div class="container hidden" id="talk">
+<div class="card">
+<h2>Voice Talk Mode</h2>
+<p>Voice Call Connected ✔</p>
+<button onclick="backOptions()">Back</button>
+</div>
+</div>
+
+<!-- VIDEO -->
+<div class="container hidden" id="video">
+<h2>Face to Face Video</h2>
+<div class="videoBox"></div>
+<br>
+<button onclick="backOptions()">End Call</button>
+</div>
+
+<script>
+
+function login(){
+
+let user=document.getElementById("username").value;
+let pass=document.getElementById("password").value;
+
+let userRegex=/^[a-zA-Z0-9_.@]+$/;
+let passRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_]).{8,}$/;
+
+if(!userRegex.test(user)){
+document.getElementById("loginError").innerText="Invalid Username";
+return;
+}
+
+if(!passRegex.test(pass)){
+document.getElementById("loginError").innerText="Weak Password";
+return;
+}
+
+document.getElementById("login").classList.add("hidden");
+document.getElementById("mood").classList.remove("hidden");
+
+}
+
+function goOptions(){
+let mood=document.getElementById("moodInput").value;
+if(mood===""){ alert("Enter mood"); return; }
+
+document.getElementById("mood").classList.add("hidden");
+document.getElementById("options").classList.remove("hidden");
+}
+
+function showChat(){
+hideAll();
+document.getElementById("chat").classList.remove("hidden");
+}
+
+function showTalk(){
+hideAll();
+document.getElementById("talk").classList.remove("hidden");
+}
+
+function showVideo(){
+hideAll();
+document.getElementById("video").classList.remove("hidden");
+}
+
+function backOptions(){
+hideAll();
+document.getElementById("options").classList.remove("hidden");
+}
+
+function hideAll(){
+document.getElementById("options").classList.add("hidden");
+document.getElementById("chat").classList.add("hidden");
+document.getElementById("talk").classList.add("hidden");
+document.getElementById("video").classList.add("hidden");
+}
+
+</script>
+
+</body>
+</html>
+
+
+
